@@ -1,0 +1,80 @@
+<?php if ($this->pageCount > 1): ?>
+    <div class="pagination">
+        <ul>
+            
+            
+            <!-- First page link -->            
+            <?php if($this->current != 1): ?>
+                <li>
+                    <a href="<?php echo $this->url('crud/index', array('page' => 1), true) . '?' . $this->filters; ?>">Primeira</a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="<?php echo $this->url('crud/index', array('page' => 1), true) . '?' . $this->filters; ?>" class="disabled">Primeira</a>
+                </li>
+            <?php endif;?>
+
+
+
+            <!-- Previous page link -->
+            <?php if (isset($this->previous)): ?>
+                <li>
+                    <a href="<?php echo $this->url('crud/index', array('page' => $this->previous), true) . '?' . $this->filters; ?>">&laquo;</a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="#" class="disabled">&laquo;</a>
+                </li>
+            <?php endif; ?>
+ 
+
+            
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+                    <li>
+                        <a href="<?php echo $this->url('crud/index', array('page' => $page), true) . '?' . $this->filters; ?>"><?php echo $page; ?></a>
+                    </li>
+                <?php else: ?>
+                    <li class="active">
+                        <a href="#"><?php echo $page; ?></a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+
+
+            <!-- Next page link -->
+            <?php if (isset($this->next)): ?>
+                <li>
+                    <a href="<?php echo $this->url('crud/index', array('page' => $this->next), true) . '?' . $this->filters; ?>">&raquo;</a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="#" class="disabled">&raquo;</a>
+                </li>
+            <?php endif; ?>
+
+
+
+            <!-- Last page link -->
+            <?php if($this->current != $this->pageCount): ?>
+                <li>
+                    <a href="<?php echo $this->url('crud/index', array('page' => $this->pageCount), true) . '?' . $this->filters; ?>">Última</a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="<?php echo $this->url('crud/index', array('page' => 1), true) . '?' . $this->filters; ?>" class="disabled">Última</a>
+                </li>
+            <?php endif;?>
+            
+
+        
+        </ul>
+        <!-- Number pages -->
+        <!-- 
+        <span class="info"> <?php echo $this->current;?> de <?php echo $this->pageCount;?></span>
+        -->
+
+    </div>
+<?php endif; ?>

@@ -1,0 +1,45 @@
+<?php $controller = lcfirst($this->currentRoute('controller')); ?>
+<h1><?php echo $this->s_title; ?></h1>
+
+<div><a href="<?php echo $this->url('crud/new', array('module' => $this->s_module, 'controller' => $controller))?>">Add</a></div>
+
+<?php if (count($this->as_messages)) { ?>
+<div style="border: 2px solid blue">
+<?php foreach ($this->as_messages as $s_msg) { ?>
+<p><?php echo $s_msg?></p>
+<?php } ?>
+</div>
+<?php } ?>
+
+<div>
+    <table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->aI_entities as $I_entity): ?>
+        <tr class="odd gradeX">
+            <td><?php echo $I_entity->getName()?></td>
+            <td>
+                <a href="<?php echo $this->url('crud/edit', array('module' => $this->s_module, 'controller' => $controller, 'id' => $I_entity->getId()))?>">edit</a>
+                 | 
+                <a href="<?php echo $this->url('crud/delete', array('module' => $this->s_module, 'controller' => $controller, 'id' => $I_entity->getId()))?>">delete</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+    </table>
+	
+	<?php 
+	if($paginate)
+		echo $this->paginationControl(
+			$this->aI_entities,
+			'Sliding',
+			'crud/partials/paginator/control.phtml',
+			array('filters' => $this->filters)
+		);
+	?>
+</div>

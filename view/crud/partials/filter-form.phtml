@@ -1,0 +1,19 @@
+<br/>
+
+<h5>Filtros <i class="icon-search icon-black"></i></h5>
+
+<?php echo $this->form()->openTag($this->filterForm); ?>
+
+<?php echo $this->formCollection($this->filterForm); ?>
+
+<button type="submit" class="btn btn-block">
+	<i class="icon-search icon-black"></i>
+	<span><strong>Filtrar</strong></span>
+</button>
+
+<a href="javascript:void;" class="btn btn-block limpaForm">
+	<i class="icon-refresh icon-black"></i>
+	<span><strong>Limpar Filtros</strong></span>
+</a>
+
+<?php echo $this->form()->closeTag(); ?>

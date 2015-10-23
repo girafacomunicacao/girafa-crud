@@ -1,0 +1,33 @@
+{
+    "name": "girafa/crud",
+	"type": "library",
+    "description": "ZF2 module used to facilitate crud operations on doctrine entities.",
+    "license": "MIT",
+    "keywords": [
+        "crud",
+        "zf2"
+    ],
+    "authors": [
+        {
+            "name": "Girafa Comunicacao",
+			"email": "silver@girafacomunicacao.com.br",
+			"role": "Developer",
+			"homepage": "http://girafacomunicacao.com.br"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*"
+    },    
+	"suggest": {
+		"doctrine/doctrine-orm-module": "to use DoctrineExtensions components"
+	},
+    "autoload": {
+        "psr-0": {
+            "Girafa\\Crud": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
