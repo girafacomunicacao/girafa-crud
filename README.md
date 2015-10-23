@@ -1,5 +1,4 @@
-[![Total Downloads](https://poser.pugx.org/girafa/crud/downloads.png)](https://packagist.org/packages/girafa/crud)
-
+[![Total Downloads](https://poser.pugx.org/girafa/crud/downloads)](https://packagist.org/packages/girafa/crud)
 
 Crud
 ========
