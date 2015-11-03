@@ -144,18 +144,8 @@ class CrudIndexController extends AbstractActionController
     }
     
     public function indexAction(){
-		$filters = null;
-		if($this->I_filterForm) {
-			$formElements = array_keys($this->I_filterForm->getElements());			
-			$params = $this->params()->fromQuery();
-			foreach ($params as $key => $value) {
-				if(!in_array($key, $formElements)) {
-					unset($params[$key]);
-				}
-			}				
-			$filters = $params;
-			$this->I_filterForm->setData($params);
-		}
+		if($filters = $this->getFilters())
+			$this->I_filterForm->setData($filters);
 		
 		$qb = $this->I_service->createQueryBuilder($filters, $this->orderBy);		
 		
@@ -470,6 +460,21 @@ class CrudIndexController extends AbstractActionController
 			$paginator->setCurrentPageNumber($page);
 		
 		return $paginator;
+	}
+
+	protected function getFilters() {
+		$filters = null;
+		if($this->I_filterForm) {
+			$formElements = array_keys($this->I_filterForm->getElements());			
+			$params = $this->params()->fromQuery();
+			foreach ($params as $key => $value) {
+				if(!in_array($key, $formElements)) {
+					unset($params[$key]);
+				}
+			}				
+			$filters = $params;			
+		}
+		return $filters;
 	}
 	
     protected function crudRedirect($s_action){

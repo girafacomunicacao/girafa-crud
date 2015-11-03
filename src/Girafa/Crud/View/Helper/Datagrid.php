@@ -208,19 +208,25 @@ class Datagrid extends AbstractHelper implements ServiceLocatorAwareInterface
 	protected function renderBulkActions($bulkActions) {
 		$return = '<script>' . PHP_EOL
 				. '$(document).ready(function() {' . PHP_EOL
-				. '	document.getElementById("bulk-actions-submit").onclick = function() {' . PHP_EOL
-				. '		url = document.getElementById("bulk-action").selectedOptions[0].value;' . PHP_EOL
-				. '		form = document.getElementById("bulk-actions-form");' . PHP_EOL
-				. '		form.action = url;' . PHP_EOL
-				. '		cbs = document.getElementsByClassName("cb-row");' . PHP_EOL
-				. '		ids = "";' . PHP_EOL				
-				. '		for(i in cbs) {' . PHP_EOL
-				. '			if(cbs[i].checked)' . PHP_EOL
-				. '				ids += cbs[i].name.substr(3) + ";";' . PHP_EOL
-				. '		} console.log(ids);' . PHP_EOL
-				. '		document.getElementById("bulk-action-ids").value = ids;' . PHP_EOL
-				. '		form.submit();' . PHP_EOL
-				. '	}' . PHP_EOL
+				. '	$("#bulk-actions-submit").on("click", function() {' . PHP_EOL
+				. '		type = $("#bulk-action :selected").data("type");' . PHP_EOL
+				. '		if(!type)' . PHP_EOL 
+				. '			type = "some";' . PHP_EOL
+				. '		url = $("#bulk-action").val();' . PHP_EOL
+				. '		if(type == "all") {'
+				. '			$("#bulk-action-ids").val("all");' . PHP_EOL
+				. '			url += window.location.search;' . PHP_EOL
+				. '		} else {' . PHP_EOL
+				. '			$cbs = $(".cb-row");' . PHP_EOL
+				. '			ids = "";' . PHP_EOL				
+				. '			$(".cb-row").each(function() {' . PHP_EOL
+				. '				if($(this).is(":checked"))' . PHP_EOL
+				. '					ids += $(this).attr("name").substr(3) + ";";' . PHP_EOL
+				. '			});' . PHP_EOL
+				. '			$("#bulk-action-ids").val(ids);' . PHP_EOL
+				. '		}' . PHP_EOL
+				. '		$("#bulk-actions-form").attr("action", url).submit();' . PHP_EOL
+				. '	});' . PHP_EOL
 				. '});' . PHP_EOL
 				. '</script>' . PHP_EOL
 				. '<form id="bulk-actions-form" method="post" action="">' . PHP_EOL
@@ -231,7 +237,8 @@ class Datagrid extends AbstractHelper implements ServiceLocatorAwareInterface
 				. "\t\t\t<select id=\"bulk-action\">" . PHP_EOL;
 
 	   foreach ($bulkActions as $action) {
-		   $return .= "\t\t<option class=\"{$action['action']}\" value=\"{$action['url']}\">{$action['label']}</option>";
+	   	   $type = isset($action['type']) ? $action['type'] : 'some';
+		   $return .= "\t\t<option class=\"{$action['action']}\" value=\"{$action['url']}\" data-type=\"{$type}\">{$action['label']}</option>";
 	   }
 
 	   $return .= "\t\t\t</select>" . PHP_EOL
