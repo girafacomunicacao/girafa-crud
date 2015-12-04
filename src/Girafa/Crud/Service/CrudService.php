@@ -187,11 +187,17 @@ class CrudService implements CrudServiceInterface, ServiceLocatorAwareInterface 
         $entity = null;
 		$isUpdate = false;
 		
-        if(isset($am_formData['id']) && 
-          is_numeric($am_formData['id']) && 
-          $am_formData['id'] > 0){
-			$isUpdate = true;			
-            $entity = $this->getEntity($am_formData['id']);
+        foreach ($am_formData as $key => $value) {
+        	// Remove caracteres de controle das strings
+        	if(is_string($value)) {
+        		$am_formData[$key] = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $value);
+        	}
+
+        	// Define se é Update 
+        	if($key == 'id' && is_numeric($value) && $value > 0){
+				$isUpdate = true;			
+	            $entity = $this->getEntity($value);
+	        }
         }
 
         if(!$isUpdate)
