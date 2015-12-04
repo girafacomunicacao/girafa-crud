@@ -163,7 +163,7 @@ class CrudIndexController extends AbstractActionController
             'messages' => $this->flashMessenger()->setNamespace($this->s_entityName)->getMessages(),
 			'filterForm' => $this->I_filterForm,
 			'paginate' => $this->paginate,
-            'filters' => http_build_query($filters, '', '&'),
+            'filters' => ($filters ? http_build_query($filters, '', '&') : ''),
 			'datagridColumns' => $this->datagridColumns,
 			'bulkActions' => $this->bulkActions,
 			'messageNoResults' => $this->s_messageNoResults,
