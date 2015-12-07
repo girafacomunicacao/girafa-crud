@@ -190,7 +190,7 @@ class CrudService implements CrudServiceInterface, ServiceLocatorAwareInterface 
         foreach ($am_formData as $key => $value) {
         	// Remove caracteres de controle das strings
         	if(is_string($value)) {
-        		$am_formData[$key] = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $value);
+        		$am_formData[$key] = preg_replace('/[^\P{C}\n\t\r]+/u', '', $value);
         	}
 
         	// Define se é Update 
