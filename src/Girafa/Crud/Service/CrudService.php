@@ -307,4 +307,14 @@ class CrudService implements CrudServiceInterface, ServiceLocatorAwareInterface 
     {
         return $this->serviceLocator;
     }
+
+	/**
+	 * Retrieve a service, calling with method get() of ServiceLocator injected
+	 * 
+	 * @return mixed
+	 */
+    public function getService($serviceName) 
+    {
+    	return $this->getServiceLocator()->get($serviceName);
+    }
 }
