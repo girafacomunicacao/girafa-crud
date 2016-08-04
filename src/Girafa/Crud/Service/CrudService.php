@@ -47,7 +47,8 @@ class CrudService implements CrudServiceInterface, ServiceLocatorAwareInterface 
         $this->I_entityRepository = $I_entityRepository;
         $this->I_entityManager = $I_entityManager;		        
 		if($hydrator != null) {
-			if(!$hydrator instanceof \Zend\Stdlib\Hydrator\AbstractHydrator) {
+			if(!$hydrator instanceof \Zend\Stdlib\Hydrator\AbstractHydrator &&
+			   !$hydrator instanceof \Zend\Hydrator\AbstractHydrator) {
 				throw new \InvalidArgumentException(
 					sprintf(
 						'Hydrator must inherit from \Zend\Stdlib\Hydrator\AbstractHydrator, %s given',
